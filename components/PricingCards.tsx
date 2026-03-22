@@ -1,186 +1,188 @@
 "use client";
 
 import Link from "next/link";
-import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { MessageSquare, Globe, Phone, Layers } from "lucide-react";
 
-const pricingData = [
+const services = [
   {
-    name: "AI Receptionist Standard",
-    price: "$100",
-    period: "month",
-    setup: "$50 setup",
-    features: [
-      "24/7 call answering",
-      "Basic lead information collection",
-      "Appointment scheduling",
-      "Call transcripts & summaries",
-      "Email notifications",
-      "Calendar integration"
-    ],
-    cta: "Get Started",
-    link: "/book-demo",
-    popular: false
+    name: "SMS & Follow-Up Automation",
+    line1: "Lead nurture, reminders, no-show recovery,",
+    line2: "onboarding flows",
+    hint: "custom quote · typically $300–600/mo",
+    icon: MessageSquare,
+    popular: true,
   },
   {
-    name: "AI Receptionist Pro",
-    price: "$295",
-    period: "month",
-    setup: "$75 setup",
-    features: [
-      "Everything in Standard",
-      "Advanced multi-step qualification",
-      "Text message follow-up automation",
-      "Photo & document collection",
-      "Smart routing & prioritization",
-      "CRM integration with detailed notes",
-      "SMS appointment reminders"
-    ],
-    cta: "Book Demo",
-    link: "/book-demo",
-    popular: true
+    name: "Website Build",
+    line1: "Custom responsive site, SEO foundation,",
+    line2: "contact forms, Google Analytics",
+    hint: "one-time · scope dependent",
+    icon: Globe,
+    popular: false,
   },
   {
-    name: "Website Starter",
-    price: "$495",
-    period: "one-time",
-    setup: "No monthly fee",
-    features: [
-      "Custom responsive design (5 pages)",
-      "Mobile-optimized",
-      "SEO foundation",
-      "Contact forms",
-      "Google Analytics",
-      "30-day support after launch"
-    ],
-    cta: "Start Your Site",
-    link: "/book-demo",
-    popular: false
+    name: "AI Receptionist",
+    line1: "24/7 call answering, lead qualification,",
+    line2: "appointment scheduling, CRM sync",
+    hint: "custom quote · starts at $100/mo",
+    icon: Phone,
+    popular: false,
   },
   {
-    name: "Website Managed",
-    price: "$199",
-    period: "month",
-    setup: "$150 setup",
-    features: [
-      "Everything in Starter",
-      "Premium hosting included",
-      "SSL & security",
-      "Daily backups",
-      "Unlimited edits & updates",
-      "99.9% uptime guarantee",
-      "Ongoing SEO optimization"
-    ],
-    cta: "Get Managed Site",
-    link: "/book-demo",
-    popular: true
-  }
+    name: "Full System Build",
+    line1: "Pipeline setup, all automations, website,",
+    line2: "ongoing management",
+    hint: "custom quote · bundled savings",
+    icon: Layers,
+    popular: false,
+  },
 ];
 
-export default function PricingCards() {
+type PricingCardsProps = {
+  /** Use h1 on standalone pricing page; h2 when another hero already owns the page h1 */
+  headlineLevel?: "h1" | "h2";
+};
+
+export default function PricingCards({
+  headlineLevel = "h2",
+}: PricingCardsProps) {
+  const Headline = headlineLevel;
+
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-gray-900 to-black">
+    <section
+      className="py-16 md:py-24 px-4"
+      style={{ backgroundColor: "var(--pricing-section-bg)" }}
+    >
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16 max-w-3xl mx-auto"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Simple, Transparent Pricing
-          </h2>
-          <p className="text-xl text-gray-400">
-            Choose the package that fits your business
+          <p
+            className="text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase mb-4"
+            style={{ color: "var(--pricing-electric-blue)" }}
+          >
+            Pricing
+          </p>
+          <Headline className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white mb-5 leading-tight text-balance">
+            Built around your operation — not a template
+          </Headline>
+          <p
+            className="text-base md:text-lg leading-relaxed text-balance"
+            style={{ color: "var(--pricing-muted)" }}
+          >
+            Every contractor is different. Your quote is based on what you
+            actually need: scope of automations, number of pipelines, and
+            ongoing support level.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {pricingData.map((plan, index) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`relative glassmorphism border ${
-                plan.popular ? "border-blue-500 shadow-xl shadow-blue-500/20" : "border-gray-800"
-              } rounded-2xl p-6 hover:scale-[1.02] transition-transform duration-300`}
-            >
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-xs font-semibold">
-                  Popular
-                </div>
-              )}
-
-              <div className="mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">
-                  {plan.name}
-                </h3>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold text-white">{plan.price}</span>
-                  <span className="text-gray-400">/{plan.period}</span>
-                </div>
-                <div className="text-sm text-gray-500 mt-1">{plan.setup}</div>
-              </div>
-
-              <ul className="space-y-3 mb-6">
-                {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-start space-x-2">
-                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-300 text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Link
-                href={plan.link}
-                className={`block text-center ${
-                  plan.popular
-                    ? "bg-blue-600 hover:bg-blue-700"
-                    : "bg-gray-800 hover:bg-gray-700"
-                } text-white px-6 py-3 rounded-lg font-semibold transition-colors`}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <motion.article
+                key={service.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className={`relative flex flex-col rounded-xl border p-4 sm:p-5 md:p-6 h-full ${
+                  service.popular
+                    ? "border-blue-500/40 shadow-lg shadow-blue-500/10"
+                    : ""
+                }`}
+                style={{
+                  backgroundColor: "rgba(15, 23, 42, 0.45)",
+                  borderColor: service.popular
+                    ? "rgba(59, 130, 246, 0.35)"
+                    : "var(--pricing-card-border)",
+                }}
               >
-                {plan.cta}
-              </Link>
-            </motion.div>
-          ))}
+                {service.popular && (
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-blue-600 px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white sm:text-xs">
+                    Most popular
+                  </div>
+                )}
+
+                <div
+                  className="mb-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border sm:h-11 sm:w-11"
+                  style={{
+                    backgroundColor: "var(--pricing-icon-bg)",
+                    borderColor: "var(--pricing-icon-border)",
+                  }}
+                >
+                  <Icon
+                    className="h-5 w-5 sm:h-[22px] sm:w-[22px]"
+                    style={{ color: "var(--pricing-electric-blue)" }}
+                    aria-hidden
+                  />
+                </div>
+
+                <h3 className="text-[15px] font-medium leading-snug text-white mb-2">
+                  {service.name}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed mb-1"
+                  style={{ color: "var(--pricing-muted)" }}
+                >
+                  {service.line1}
+                  <br />
+                  {service.line2}
+                </p>
+                <p
+                  className="mt-auto pt-3 text-[13px] leading-snug font-medium"
+                  style={{ color: "var(--pricing-electric-blue)" }}
+                >
+                  {service.hint}
+                </p>
+              </motion.article>
+            );
+          })}
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-12 text-center"
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="mt-12 md:mt-16"
         >
-          <div className="glassmorphism border border-yellow-600/50 rounded-xl p-6 inline-block">
-            <p className="text-yellow-400 font-semibold">
-              <span className="text-xl">💰</span> Bundle & Save: Combine AI Receptionist + Website for 10% off. Ask us about custom packages.
-            </p>
-          </div>
-        </motion.div>
+          <div
+            className="h-px w-full max-w-4xl mx-auto mb-10 md:mb-12"
+            style={{ backgroundColor: "var(--pricing-card-border)" }}
+            aria-hidden
+          />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-12 flex flex-wrap justify-center gap-8 text-center"
-        >
-          <div className="flex items-center space-x-2 text-gray-400">
-            <CheckCircle className="w-5 h-5 text-green-500" />
-            <span>30-day money-back guarantee</span>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center max-w-xl mx-auto mb-10">
+            <Link
+              href="/book-demo"
+              className="inline-flex justify-center items-center rounded-lg bg-blue-600 hover:bg-blue-700 text-white px-6 py-3.5 text-base font-semibold transition-colors text-center"
+            >
+              Get a custom quote
+            </Link>
+            <Link
+              href="/pricing#feature-comparison"
+              className="inline-flex justify-center items-center rounded-lg border-2 border-blue-500/60 text-white hover:bg-blue-500/10 px-6 py-3.5 text-base font-semibold transition-colors text-center"
+            >
+              See what&apos;s included
+            </Link>
           </div>
-          <div className="flex items-center space-x-2 text-gray-400">
-            <CheckCircle className="w-5 h-5 text-green-500" />
-            <span>No long-term contracts</span>
-          </div>
-          <div className="flex items-center space-x-2 text-gray-400">
-            <CheckCircle className="w-5 h-5 text-green-500" />
-            <span>Cancel anytime</span>
-          </div>
+
+          <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-sm text-gray-400 px-2">
+            <span
+              className="inline-block h-2 w-2 shrink-0 rounded-full bg-green-500"
+              aria-hidden
+            />
+            <span>
+              No long-term contracts · Cancel anytime · 30-day money-back
+              guarantee
+            </span>
+          </p>
         </motion.div>
       </div>
     </section>

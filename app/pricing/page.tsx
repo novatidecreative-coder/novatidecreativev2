@@ -1,89 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Phone, Star, Rocket, Shield, CheckCircle, X, HelpCircle } from "lucide-react";
+import { CheckCircle, X, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
-
-const pricingData = [
-  {
-    name: "AI Receptionist Standard",
-    price: "$100",
-    period: "month",
-    setup: "$50 setup",
-    icon: Phone,
-    features: [
-      "24/7 call answering",
-      "Basic lead information collection",
-      "Appointment scheduling",
-      "Call transcripts & summaries",
-      "Email notifications",
-      "Calendar integration"
-    ],
-    cta: "Get Started",
-    link: "/book-demo",
-    popular: false,
-    color: "blue"
-  },
-  {
-    name: "AI Receptionist Pro",
-    price: "$295",
-    period: "month",
-    setup: "$75 setup",
-    icon: Star,
-    features: [
-      "Everything in Standard",
-      "Advanced multi-step qualification",
-      "Text message follow-up automation",
-      "Photo & document collection",
-      "Smart routing & prioritization",
-      "CRM integration with detailed notes",
-      "SMS appointment reminders"
-    ],
-    cta: "Book Demo",
-    link: "/book-demo",
-    popular: true,
-    color: "purple"
-  },
-  {
-    name: "Website Starter",
-    price: "$495",
-    period: "one-time",
-    setup: "No monthly fee",
-    icon: Rocket,
-    features: [
-      "Custom responsive design (5 pages)",
-      "Mobile-optimized",
-      "SEO foundation",
-      "Contact forms",
-      "Google Analytics",
-      "30-day support after launch"
-    ],
-    cta: "Start Your Site",
-    link: "/book-demo",
-    popular: false,
-    color: "green"
-  },
-  {
-    name: "Website Managed",
-    price: "$199",
-    period: "month",
-    setup: "$150 setup",
-    icon: Shield,
-    features: [
-      "Everything in Starter",
-      "Premium hosting included",
-      "SSL & security",
-      "Daily backups",
-      "Unlimited edits & updates",
-      "99.9% uptime guarantee",
-      "Ongoing SEO optimization"
-    ],
-    cta: "Get Managed Site",
-    link: "/book-demo",
-    popular: true,
-    color: "green"
-  }
-];
+import PricingCards from "@/components/PricingCards";
 
 const comparisonFeatures = [
   { name: "24/7 Call Answering", standard: true, pro: true, starter: false, managed: false },
@@ -140,108 +60,7 @@ export default function PricingPage() {
 
   return (
     <main className="min-h-screen pt-16">
-      {/* Hero Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl font-bold text-white mb-6"
-          >
-            Simple, Transparent Pricing
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-300 mb-12"
-          >
-            Choose the plan that fits your business. No hidden fees, no surprises.
-          </motion.p>
-        </div>
-      </section>
-
-      {/* Pricing Cards */}
-      <section className="py-20 px-4 bg-black">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {pricingData.map((plan, index) => (
-              <motion.div
-                key={plan.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative glassmorphism border ${
-                  plan.popular ? `border-${plan.color}-500 shadow-xl shadow-${plan.color}-500/20` : "border-gray-800"
-                } rounded-2xl p-6 hover:scale-[1.02] transition-transform duration-300`}
-              >
-                {plan.popular && (
-                  <div className={`absolute -top-3 left-1/2 -translate-x-1/2 bg-${plan.color}-600 text-white px-4 py-1 rounded-full text-xs font-semibold`}>
-                    Popular
-                  </div>
-                )}
-
-                <div className={`w-12 h-12 bg-${plan.color}-600 rounded-lg flex items-center justify-center mb-4`}>
-                  <plan.icon className="w-6 h-6 text-white" />
-                </div>
-
-                <h3 className="text-xl font-bold text-white mb-2">
-                  {plan.name}
-                </h3>
-                <div className="flex items-baseline gap-2 mb-1">
-                  <span className="text-4xl font-bold text-white">{plan.price}</span>
-                  <span className="text-gray-400">/{plan.period}</span>
-                </div>
-                <div className="text-sm text-gray-500 mb-6">{plan.setup}</div>
-
-                <ul className="space-y-3 mb-6">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start space-x-2">
-                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300 text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href={plan.link}
-                  className={`block text-center ${
-                    plan.popular
-                      ? `bg-${plan.color}-600 hover:bg-${plan.color}-700`
-                      : "bg-gray-800 hover:bg-gray-700"
-                  } text-white px-6 py-3 rounded-lg font-semibold transition-colors`}
-                >
-                  {plan.cta}
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Trust Indicators */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-8 text-center"
-          >
-            <div className="flex items-center space-x-2 text-gray-400">
-              <CheckCircle className="w-5 h-5 text-green-500" />
-              <span>30-day money-back guarantee</span>
-            </div>
-            <div className="flex items-center space-x-2 text-gray-400">
-              <CheckCircle className="w-5 h-5 text-green-500" />
-              <span>No long-term contracts</span>
-            </div>
-            <div className="flex items-center space-x-2 text-gray-400">
-              <CheckCircle className="w-5 h-5 text-green-500" />
-              <span>Cancel anytime</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <PricingCards headlineLevel="h1" />
 
       {/* Bundle Section */}
       <section className="py-12 px-4 bg-gradient-to-b from-black to-gray-900">
@@ -270,7 +89,10 @@ export default function PricingPage() {
       </section>
 
       {/* Comparison Table */}
-      <section className="py-20 px-4 bg-black overflow-x-auto">
+      <section
+        id="feature-comparison"
+        className="py-20 px-4 bg-black overflow-x-auto scroll-mt-20"
+      >
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

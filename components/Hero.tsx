@@ -7,22 +7,22 @@ import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
   const heroImages = [
-    { 
-      src: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80", 
-      alt: "Professional businesswoman on phone call" 
+    {
+      src: "/images/hero/hero-roofer-sms.png",
+      alt: "Roofer on a job site at sunset beside an SMS thread scheduling a roofing estimate follow-up",
     },
-    { 
-      src: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80", 
-      alt: "Business team collaboration meeting" 
+    {
+      src: "/images/hero/hero-business-owner-calendar.png",
+      alt: "Business owner at a home office desk with a calendar open on his laptop, service truck visible through the window",
     },
-    { 
-      src: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80", 
-      alt: "Modern office workspace with laptop" 
+    {
+      src: "/images/hero/hero-trades-automation-grid.png",
+      alt: "Collage of trades workflows: SMS automation, signed estimates, CRM pipeline, and automated customer texts",
     },
-    { 
-      src: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80", 
-      alt: "Customer service representative with headset" 
-    }
+    {
+      src: "/images/hero/hero-leads-landing.png",
+      alt: "Laptop displaying a landing page for automated lead follow-up and SMS engagement",
+    },
   ];
 
   return (
@@ -76,20 +76,20 @@ export default function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto"
+          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-6xl mx-auto"
         >
           {heroImages.map((image, i) => (
             <div
               key={i}
-              className="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-700 overflow-hidden hover:scale-105 transition-transform duration-300 hover:border-blue-500"
+              className="aspect-[3/4] bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-700 overflow-hidden hover:scale-[1.02] transition-transform duration-300 hover:border-blue-500"
             >
               <Image
                 src={image.src}
                 alt={image.alt}
-                width={400}
-                height={400}
+                width={800}
+                height={800}
                 className="w-full h-full object-cover"
-                unoptimized
+                sizes="(max-width: 768px) 50vw, 25vw"
               />
             </div>
           ))}

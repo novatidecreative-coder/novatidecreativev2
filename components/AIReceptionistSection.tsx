@@ -1,51 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { Phone, Star, CheckCircle, ArrowRight } from "lucide-react";
+import { ArrowRight, Phone, Clock, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
 
-const packages = [
+const highlights = [
   {
-    name: "Standard",
-    price: "$100",
-    setup: "$50",
     icon: Phone,
-    description: "Perfect for businesses that need reliable 24/7 call coverage",
-    features: [
-      "24/7 call answering",
-      "Basic lead information collection",
-      "Appointment scheduling",
-      "Call transcripts & summaries",
-      "Email notifications",
-      "Calendar integration"
-    ],
-    idealFor: "Salons, retail shops, small offices",
-    cta: "Get Started",
-    link: "/book-demo",
-    highlight: false
+    title: "24/7 answering",
+    description:
+      "Every ring gets a consistent, professional response—after hours and during busy jobs.",
   },
   {
-    name: "Pro",
-    price: "$295",
-    setup: "$75",
-    icon: Star,
-    description: "Advanced qualification system that screens leads and collects everything you need before booking",
-    features: [
-      "Everything in Standard, plus:",
-      "Advanced multi-step qualification process",
-      "Text message follow-up automation",
-      "Photo & document collection for estimates",
-      "Smart routing based on job type/urgency",
-      "Custom qualification questions",
-      "Lead scoring & prioritization",
-      "CRM integration with detailed notes",
-      "SMS appointment reminders"
-    ],
-    idealFor: "Contractors, home services, medical practices, legal firms",
-    cta: "Book a Demo",
-    link: "/book-demo",
-    highlight: true
-  }
+    icon: Clock,
+    title: "Qualification & booking",
+    description:
+      "Custom scripts and depth: from quick intake to full photo-and-document workflows before you roll a truck.",
+  },
+  {
+    icon: MessageSquare,
+    title: "SMS + CRM handoff",
+    description:
+      "Automated texts, reminders, and structured notes in the tools you already use.",
+  },
 ];
 
 const proWorkflow = [
@@ -66,82 +43,67 @@ export default function AIReceptionistSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 max-w-3xl mx-auto"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Two Ways to Capture Every Lead
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
+            Capture Every Lead—Without a Fixed “Tier”
           </h2>
+          <p className="text-lg text-gray-400 mb-8">
+            Call coverage, qualification depth, SMS follow-up, and CRM sync are scoped to{" "}
+            <span className="text-gray-300">your</span> volume and trade—not a one-size
+            menu. See{" "}
+            <Link
+              href="/pricing"
+              className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+            >
+              pricing &amp; packages
+            </Link>{" "}
+            for how we quote it.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/ai-receptionist"
+              className="inline-flex items-center justify-center gap-2 border-2 border-blue-600 text-white hover:bg-blue-600 px-6 py-3 rounded-lg font-semibold transition-colors"
+            >
+              AI receptionist details
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/book-demo"
+              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+            >
+              Get a custom quote
+            </Link>
+          </div>
         </motion.div>
 
-        {/* Packages */}
-        <div className="grid md:grid-cols-2 gap-8 mb-20">
-          {packages.map((pkg, index) => (
-            <motion.div
-              key={pkg.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`relative glassmorphism border ${
-                pkg.highlight ? "border-purple-500 shadow-xl shadow-purple-500/20" : "border-gray-800"
-              } rounded-2xl p-8 hover:scale-[1.02] transition-transform duration-300`}
-            >
-              {pkg.highlight && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-1 rounded-full text-sm font-semibold">
-                  Most Popular
-                </div>
-              )}
-
-              <div className="flex items-center justify-between mb-6">
-                <div className={`w-14 h-14 ${pkg.highlight ? "bg-gradient-to-br from-purple-600 to-pink-600" : "bg-gray-800"} rounded-xl flex items-center justify-center`}>
-                  <pkg.icon className="w-7 h-7 text-white" />
-                </div>
-                <div className="text-right">
-                  <div className="text-4xl font-bold text-white">{pkg.price}</div>
-                  <div className="text-sm text-gray-400">per month</div>
-                  <div className="text-sm text-gray-500">{pkg.setup} setup</div>
-                </div>
-              </div>
-
-              <h3 className="text-2xl font-bold text-white mb-3">
-                AI Receptionist {pkg.name}
-              </h3>
-
-              <p className="text-gray-400 mb-6">
-                {pkg.description}
-              </p>
-
-              <ul className="space-y-3 mb-6">
-                {pkg.features.map((feature, i) => (
-                  <li key={i} className="flex items-start space-x-3">
-                    <CheckCircle className={`w-5 h-5 ${pkg.highlight ? "text-purple-500" : "text-green-500"} flex-shrink-0 mt-0.5`} />
-                    <span className={feature.includes("Everything") ? "text-gray-300 font-semibold" : "text-gray-300"}>
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="bg-gray-900 rounded-lg p-4 mb-6">
-                <div className="text-sm text-gray-400 mb-1">Ideal for:</div>
-                <div className="text-white">{pkg.idealFor}</div>
-              </div>
-
-              <Link
-                href={pkg.link}
-                className={`block text-center ${
-                  pkg.highlight
-                    ? "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-                    : "bg-blue-600 hover:bg-blue-700"
-                } text-white px-6 py-3 rounded-lg font-semibold transition-colors`}
+        <div className="grid md:grid-cols-3 gap-6 mb-20">
+          {highlights.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="glassmorphism border border-gray-800 rounded-xl p-6 text-left"
               >
-                {pkg.cta}
-              </Link>
-            </motion.div>
-          ))}
+                <div className="w-11 h-11 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center mb-4">
+                  <Icon className="w-5 h-5 text-blue-400" aria-hidden />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {item.description}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* How Pro Works */}
+        {/* How it works */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -150,7 +112,7 @@ export default function AIReceptionistSection() {
           className="glassmorphism border border-gray-800 rounded-2xl p-8 md:p-12"
         >
           <h3 className="text-3xl font-bold text-white mb-8 text-center">
-            How Pro Works
+            How it works
           </h3>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

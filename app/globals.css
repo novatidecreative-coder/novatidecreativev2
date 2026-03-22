@@ -5,6 +5,12 @@
 :root {
   --background: #0a0a0a;
   --foreground: #f5f5f5;
+  --pricing-section-bg: #0a0f1e;
+  --pricing-electric-blue: #38bdf8;
+  --pricing-muted: #94a3b8;
+  --pricing-card-border: rgba(148, 163, 184, 0.12);
+  --pricing-icon-bg: rgba(56, 189, 248, 0.08);
+  --pricing-icon-border: rgba(56, 189, 248, 0.22);
 }
 
 * {
